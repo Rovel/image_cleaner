@@ -64,14 +64,18 @@ jobs:
       with:
         name: ${{ matrix.target }}
         path: target/${{ matrix.target }}/release/
+    - name: Set env
+      run: |
+        echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.0.0
-        release_name: Release ${{ matrix.target }}
+        tag_name: ${{ env.TAG }} 
+        release_name: ${{ env.BRANCH }}-${{ matrix.target }}
         body: |
           Changes in this Release
         draft: false
