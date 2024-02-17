@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Rust
-      run: curl https://sh.rustup.rs -sSf | sh -s -- -y ${{ matrix.target }}
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install cross
       run: cargo install cross
     - name: Test binary
@@ -37,7 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Rust
-      run: curl https://sh.rustup.rs -sSf | sh -s -- -y ${{ matrix.target }}
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install cross
       run: cargo install cross
     - name: Build binary
