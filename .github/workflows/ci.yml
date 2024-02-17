@@ -1,5 +1,4 @@
 name: Rust Multi-Arch Build
-
 on:
   push:
     branches:
@@ -19,11 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: ${{ matrix.target }}
-        override: true
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install cross
       run: cargo install cross
     - name: Test binary
@@ -42,17 +37,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: ${{ matrix.target }}
-        override: true
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install cross
       run: cargo install cross
     - name: Build binary
       run: cross build --target ${{ matrix.target }} --release
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.target }}
         path: target/${{ matrix.target }}/release/
