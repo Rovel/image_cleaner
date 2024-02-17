@@ -18,11 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: ${{ matrix.target }}
-        override: true
+      run: curl https://sh.rustup.rs -sSf | sh -s -- -y ${{ matrix.target }}
     - name: Install cross
       run: cargo install cross
     - name: Test binary
