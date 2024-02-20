@@ -47,7 +47,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.target }}
+        name: image_cleaner-${{ matrix.target }}
         path: target/${{ matrix.target }}/release/
   
   release:
@@ -55,15 +55,13 @@ jobs:
     name: Release
     needs: build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - target: x86_64-unknown-linux-gnu
-          - target: armv7-unknown-linux-gnueabihf
-          - target: aarch64-unknown-linux-gnu
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v4
+      with:
+        path: target
+        pattern: image_cleaner-*
+        merge-multiple: true
     - name: Display structure of downloaded files
       run: ls -R
     - name: Bump version and push tag
