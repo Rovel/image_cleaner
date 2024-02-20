@@ -40,6 +40,8 @@ jobs:
       run: curl https://sh.rustup.rs -sSf | sh -s -- -y
     - name: Install cross
       run: cargo install cross
+    - name: Set Rust flags
+      run: export RUSTFLAGS="-C link-arg=-o -C link-arg=image_cleaner_#{{ matrix.target }}"
     - name: Build binary
       run: cross build --target ${{ matrix.target }} --release
     - name: Upload artifact
@@ -53,9 +55,19 @@ jobs:
     name: Release
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: x86_64-unknown-linux-gnu
+          - target: armv7-unknown-linux-gnueabihf
+          - target: aarch64-unknown-linux-gnu
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v4
+      with:
+        name: ${{ matrix.target }}/image_cleaner_#{{ matrix.target }}
+        path: target
+        merge-multiple: true
     - name: Display structure of downloaded files
       run: ls -R
     - name: Bump version and push tag
