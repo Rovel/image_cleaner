@@ -64,10 +64,6 @@ jobs:
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v4
-      with:
-        name: ${{ matrix.target }}/image_cleaner_#{{ matrix.target }}
-        path: target
-        merge-multiple: true
     - name: Display structure of downloaded files
       run: ls -R
     - name: Bump version and push tag
