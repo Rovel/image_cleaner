@@ -49,7 +49,6 @@ jobs:
       with:
         name: image_cleaner-${{ matrix.target }}
         path: target/${{ matrix.target }}/release/
-  
   release:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'Merge') }}
     name: Release
@@ -60,7 +59,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: target
-        pattern: image_cleaner-*
+        pattern: */image_cleaner
         merge-multiple: true
     - name: Display structure of downloaded files
       run: ls -R
