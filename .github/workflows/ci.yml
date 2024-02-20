@@ -60,7 +60,7 @@ jobs:
       with:
         path: target
     - name: Display structure of downloaded files
-      run: ls -
+      run: ls -R
     - name: Rename binaries
       run: |
         for dir in */ ; do
