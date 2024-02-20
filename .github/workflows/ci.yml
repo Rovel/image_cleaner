@@ -63,7 +63,7 @@ jobs:
       run: ls -R
     - name: Rename binaries
       run: |
-        for dir in */ ; do
+        cd target && for dir in */ ; do
           if [ -d "$dir" ]; then
             base=$(basename "$dir")
             mv "${dir%/}/image_cleaner" "${dir%/}/${dir%/}"  # Rename binary to match directory name
